@@ -9,5 +9,5 @@ class TestWorld:
 
 
     def test_pygame_is_initialized_when_creating_World_instance(self, pygame_init_mock):
-        world = World()
+        world = World(20, 20)
         pygame_init_mock.assert_called_once()

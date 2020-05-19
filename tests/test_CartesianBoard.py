@@ -1,4 +1,4 @@
-from BoardSetup.CartesianGameboardSetup import CartesianGameboardSetup
+from Gameboard_Setup.CartesianGameboardSetup import CartesianGameboardSetup
 import pytest
 from BoardException import BoardException
 from unittest.mock import ANY
@@ -23,7 +23,7 @@ class TestCartesianBoard:
 
     def test_size_property(self):
         board = CartesianGameboardSetup(self.height, self.width, self.field_height, self.field_width)
-        assert board.size == (self.height * self.field_height, self.width * self.field_width)
+        assert board.gameboard_size == (self.height * self.field_height, self.width * self.field_width)
 
     def test_create_board_is_called_with_proper_arguments(self, display_mock, draw_mock):
         board = CartesianGameboardSetup(self.height, self.width, self.field_height, self.field_width)
