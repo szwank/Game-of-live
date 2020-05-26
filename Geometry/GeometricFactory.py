@@ -2,12 +2,13 @@ from Geometry.Point import Point
 from Geometry.Rectangle import Rectangle
 from utils import singleton
 from typing import Tuple
-from GeometricTransformator import GeometricAbstractTransformator
+from GeometricTransformer import GeometricTransformer
 from Singleton import Singleton
-
+from utils import overload
 
 class GeometricFactory(metaclass=Singleton):
-    """Factory translates cartesian coorginates into pygame coordinates when creating Geometry objects."""
+    """Factory translates cartesian coorginates into pygame coordinates creating Geometry objects."""
+
     def __init__(self, window_height):
         self.window_height = window_height
 
@@ -20,7 +21,7 @@ class GeometricFactory(metaclass=Singleton):
         return Rectangle(translated_point1, translated_point2)
 
     def pygame_rectangle(self, rectangle):
-        upper_left_corner = GeometricAbstractTransformator.get_upper_left_corner()
+        upper_left_corner = GeometricTransformer.get_upper_left_corner()
 
     def __translate_point(self, point):
         return Point(point.x, self.__translate_y(point.y))

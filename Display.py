@@ -4,29 +4,17 @@ from GeometricFactory import GeometricFactory
 
 BLACK = (0, 0, 0)
 
-class Display(metaclass=Singleton):
-    def __init__(self):
-        super(Display, self).__init__()
+class Display():
+    def __init__(self, height, width):
         pygame.init()
 
         self.window_handle = None
-        self.width = None
-        self.hieght = None
-
-    @classmethod
-    def initiate_window(cls, height, width):
-        cls.__initiate_fields(cls(), height, width)
-        cls.__create_window(cls())
-
-    def __initiate_fields(self, height, width):
-        self.height = height
         self.width = width
-        self.__initiate_geometric_factory()
+        self.height = height
 
-    def __initiate_geometric_factory(self):
-        GeometricFactory(self.height)
+        self.__geometric_factory = GeometricFactory(self.height)
 
-    def __create_window(self):
+    def create_window(self):
         pygame.display.set_mode(self.window_dimensions)
 
     @property
@@ -50,6 +38,7 @@ class Display(metaclass=Singleton):
     def rectangle(cls, rectangle, color=BLACK, line_thickness=1):
         transformed_rectangle = GeometricFactory.rectangle(rectangle)
         cls.__draw_rectangle(cls(), color, transformed_rectangle, line_thickness)
+
 
     def __draw_rectangle(self, color, rectangle, line_thickness):
         pygame.draw.rectangle(self.window_handle, color, rectangle.position, line_thickness)

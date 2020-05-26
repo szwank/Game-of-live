@@ -28,7 +28,7 @@ class TestCartesianBoard:
     def test_create_board_is_called_with_proper_arguments(self, display_mock, draw_mock):
         board = CartesianGameboardSetup(self.height, self.width, self.field_height, self.field_width)
 
-        board.create_board()
+        board.from_height_and_width()
 
         display_mock.set_mode.assert_called_once()
         display_mock.set_mode.assert_called_with((self.height * self.field_height, self.width * self.field_width))
@@ -36,20 +36,20 @@ class TestCartesianBoard:
     def test_create_board_set_bard_field(self, display_mock, draw_mock):
         board = CartesianGameboardSetup(self.height, self.width)
 
-        board.create_board()
+        board.from_height_and_width()
 
         assert board.board == display_mock.set_mode()
 
     def test_rise_error_when_creating_second_board(self, display_mock, draw_mock):
         board = CartesianGameboardSetup(self.height, self.width)
 
-        board.create_board()
+        board.from_height_and_width()
         with pytest.raises(BoardException):
-            board.create_board()
+            board.from_height_and_width()
 
     def test_setup_board_calling_setup_methods(self, display_mock, draw_mock):
         board = CartesianGameboardSetup(self.height, self.width)
-        board.create_board()
+        board.from_height_and_width()
 
         display_mock.set_mode().fill.assert_called_once()
         draw_mock.line.assert_called_with(display_mock.set_mode(), ANY, ANY, ANY, ANY)

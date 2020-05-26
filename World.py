@@ -1,20 +1,13 @@
 import pygame
-from BoardCreator import BoardCreator
+from Board.Board import Board
 from utils import singleton
 
 
 @singleton
 class World:
     def __init__(self, height, width):
-        self.__init_pytest()
 
-        self.board_creator = BoardCreator(height, width)
-
-    def __init_pytest(self):
-        pygame.init()
-
-    def init(self):
-        self.board_creator.init()
+        self.board = Board(height, width)
 
     def start(self):
         while True:

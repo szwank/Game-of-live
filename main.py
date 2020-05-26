@@ -4,7 +4,7 @@ import pygame
 
 def main():
     world = World(10, 10)
-    world.init()
+    # world.init()
     world.start()
 
 if __name__ == '__main__':

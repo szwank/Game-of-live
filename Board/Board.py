@@ -1,11 +1,13 @@
 from typing import Tuple
 import pygame
-from CartesianGameboardSetup import CartesianGameboardSetup
 from GeometricFactory import GeometricFactory
 from Point import Point
-from GeometricTransformator import GeometricAbstractTransformator
+from GeometricTransformer import GeometricTransformer
+from Rectangle import Rectangle
+from Gameboard import Gameboard
+from RectangleGameboardDrawer import RectangleGameboardDrawer
 
-class BoardCreator:
+class Board:
     def __init__(self, height_in_fields: int, width_in_fields: int, field_height: int = 20, field_width: int = 20,
                  console_height: int = 300):
         self.height_in_fields = height_in_fields
@@ -17,34 +19,24 @@ class BoardCreator:
         self.gameboard_margin_height = 30
         self.gameboard_margin_width = 30
 
-        self.__init_abstract_generators()
+        self.gameboard_position = self.__get_gameboard_position()
 
+        self.gameboard_setup = Gameboard(height_in_fields, width_in_fields)
+
+        self.gameboard_drawer = RectangleGameboardDrawer(self.gameboard_setup, self.gameboard_position)
+
+    def __get_gameboard_position(self):
         lower_right_point = Point(self.__gameboard_width(), self.console_height)
         higher_left_point = Point(0, self.console_height + self.__gameboard_height())
         translation_vector = (self.gameboard_margin_width, -self.gameboard_margin_height)
-
-        gameboard_position = GeometricFactory().rectangle(lower_right_point, higher_left_point)
-        self.gameboard_position = GeometricAbstractTransformator().translate_rectangle(gameboard_position, translation_vector)
-
-        self.board = self.__create_board()
-        self.gameboard_setup = CartesianGameboardSetup(self.board, self.gameboard_position, self.height_in_fields,
-                                                       self.width_in_fields)
-
-    def __init_abstract_generators(self):
-        GeometricFactory(self.__get_board_height())
-        GeometricAbstractTransformator(self.__get_board_height())
+        gameboard_position = Rectangle.from_diagonally_opposite_points(lower_right_point, higher_left_point)
+        return GeometricTransformer.translate_rectangle(gameboard_position, translation_vector)
 
     def __gameboard_height(self):
         return self.height_in_fields * self.field_height
 
     def __gameboard_width(self):
         return self.width_in_fields * self.field_width
-
-    def init(self):
-        self.gameboard_setup.setup_board()
-
-    def __create_board(self):
-        return pygame.display.set_mode(self.__get_board_size())
 
     def __get_board_size(self) -> Tuple[int, int]:
         return (self.__get_board_width(), self.__get_board_height())
