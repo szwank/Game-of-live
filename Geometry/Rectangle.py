@@ -1,5 +1,5 @@
 from Geometry.Point import Point
-from typing import Optional
+from typing import Optional, Tuple
 from utils import overload
 
 class Rectangle:
@@ -44,10 +44,12 @@ class Rectangle:
     def __calculate_width(point1: Point, point2: Point):
         return abs(point1.x - point2.x)
 
-    # @classmethod
-    # def from_central_point(cls, central_point, height, width):
-    #     upper_left_corner = cls.__get_upper_left_corner(central_point, height, width)
-    #     return cls(upper_left_corner, height, width)
+    @classmethod
+    def from_central_point(cls, central_point, height, width):
+        x = central_point.x - round(width / 2)
+        y = central_point.y + round(height/2)
+        upper_left_corner = Point(x, y)
+        return cls(upper_left_corner, height, width)
     #
     # @staticmethod
     # @overload
@@ -74,6 +76,10 @@ class Rectangle:
     @property
     def upper_left_corner(self):
         return self.__upper_left_corner
+
+    @property
+    def get_pygame_position(self) -> Tuple[int, int, int, int]:
+        return self.upper_left_corner.x, self.upper_left_corner.y, self.width, self.height
 
     def lower_left_corner(self):
         x = self.upper_left_corner.x

@@ -1,6 +1,7 @@
 from typing import Optional, Callable, List, Tuple
 from Singleton import Singleton
 from inspect import getfullargspec
+import time
 
 
 def singleton(cls: Callable) -> Callable:
@@ -81,3 +82,13 @@ class NameSpace(metaclass=Singleton):
     def get_function(self, function_key: Tuple):
         return self.__namespace[function_key]
 
+
+def print_time(func):
+
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        returned = func(*args, *kwargs)
+        end_time = time.time()
+        print(f"{func.__module__}.{func.__class__}.{func.__name__}: {end_time-start_time}")
+        return returned
+    return wrapper

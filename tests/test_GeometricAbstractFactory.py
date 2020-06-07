@@ -3,14 +3,14 @@ from Geometry.GeometricFactory import GeometricFactory
 from Geometry.Point import Point
 
 class TestGeometricAbstractFactory:
+    window_height = 600
 
     @classmethod
     def setup_class(cls):
-        cls.window_height = 600
         GeometricFactory(cls.window_height)
         print('Setup')
 
-    def test_asert_correct_point_coordinates(self):
+    def test_asert_correct_point_coordinates_after_transformation(self):
         geometric_factory = GeometricFactory()
         x = 40
         y = 100
@@ -19,7 +19,7 @@ class TestGeometricAbstractFactory:
         assert point.x == x
         assert point.y == self.window_height - y
 
-    def test_assert_correct_rectangle_coordinates(self):
+    def test_assert_correct_rectangle_transformation_from_two_points(self):
         geometric_factory = GeometricFactory()
         x1 = 40
         y1 = 100
