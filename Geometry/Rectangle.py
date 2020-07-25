@@ -50,13 +50,6 @@ class Rectangle:
         y = central_point.y + round(height/2)
         upper_left_corner = Point(x, y)
         return cls(upper_left_corner, height, width)
-    #
-    # @staticmethod
-    # @overload
-    # def __get_upper_left_corner(central_point, height, width):
-    #     x = central_point.x - round(width/2)
-    #     y = central_point.y - round(height/2)
-    #     return Point(x, y)
 
     @classmethod
     def from_lower_left_point(cls, lower_left_point, height, width):
@@ -85,27 +78,3 @@ class Rectangle:
         x = self.upper_left_corner.x
         y = self.upper_left_corner.y - self.height
         return Point(x, y)
-
-
-    # def get_upper_right_corner(self) -> Point:
-    #     x = self.__get_bigger_x_position()
-    #     y = self.__get_bigger_y_position()
-    #     return Point(x, y)
-    #
-    # def get_upper_left_corner(self, point1, point2):
-    #     pass
-    #
-    # def __get_upper_left_corner(self) -> Point:
-    #     x = self.__get_bigger_x_position()
-    #     y = self.__get_smaller_y_position()
-    #     return Point(x, y)
-    #
-    # def get_lower_right_corner(self) -> Point:
-    #     x = self.__get_smaller_x_position()
-    #     y = self.__get_bigger_y_position()
-    #     return Point(x, y)
-    #
-    # def get_lower_left_corner(self) -> Point:
-    #     x = self.__get_bigger_x_position()
-    #     y = self.__get_smaller_y_position()
-    #     return Point(x, y)

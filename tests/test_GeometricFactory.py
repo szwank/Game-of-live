@@ -2,7 +2,7 @@ import pytest
 from Geometry.GeometricFactory import GeometricFactory
 from Geometry.Point import Point
 
-class TestGeometricAbstractFactory:
+class TestGeometricFactory:
     window_height = 600
 
     @classmethod
@@ -39,7 +39,17 @@ class TestGeometricAbstractFactory:
         assert rectangle.point1.y == translated_point2.y or rectangle.point2.y == translated_point2.y
 
     def test_singleton_property(self):
-        with pytest.raises(Exception):
-            GeometricFactory(500)
 
         assert GeometricFactory() == GeometricFactory()
+
+    def test_point_transformation(self):
+        geometric_factory = GeometricFactory()
+        x = 100
+        y = 200
+
+        transformed_point = geometric_factory.point(x, y)
+
+        assert transformed_point.x == x
+        assert transformed_point.y == self.window_height - y
+
+
